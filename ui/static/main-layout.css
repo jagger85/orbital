@@ -1,0 +1,16 @@
+.app-wrapper {
+    display:flex;
+}
+
+.sidebar-wrapper {
+    border: 1px solid white;
+    height: 100%;
+    width: 400px;
+}
+
+.page-wrapper {
+    border: 1px solid white;
+    height: 100%;
+    width: 100%;
+}
+
