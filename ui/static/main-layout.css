@@ -8,6 +8,11 @@
     width: 400px;
 }
 
+#navigation-links{
+    display: flex;
+    flex-direction: column;
+}
+
 .page-wrapper {
     border: 1px solid white;
     height: 100%;

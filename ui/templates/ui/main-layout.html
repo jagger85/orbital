@@ -11,8 +11,18 @@
     <div class="sidebar-wrapper">
         {% include "ui/components/sidebar.html" %}
     </div>
-    <div class="page-wrapper">
-        {% block page %}{% endblock page %}
+    <div id="page-wrapper" class="page-wrapper">
+        {% block page %}
+
+        {% if partial_template %}
+
+        {% include partial_template %}
+
+
+        {% endif %}
+
+        {% endblock page %}
+
     </div>
 </div>
 
