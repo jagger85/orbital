@@ -1,5 +1,6 @@
-:root {
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
+:root {
     /* COLORS */
     --color-background: #1f1f1f;
     --color-grey1: #404040;
@@ -29,6 +30,11 @@
     --radius-m: 4px;
     --radius-s: 2px;
 
+    /* Transitions */
+    --transition-fast: 0.2s;
+    --transition-medium: 0.5s;
+    --transition-slow: 1s;
+
     /* Shadows */
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.05),
         0 3px 6px rgba(0, 0, 0, 0.06), 0 4px 8px rgba(0, 0, 0, 0.04),
@@ -42,6 +48,7 @@
         0 0px 0px rgba(0, 0, 0, 0.08), 0 0px 0px rgba(0, 0, 0, 0.08),
         inset 0 1px 1px hsla(0, 0%, 100%, 0.08);
     --double-border: 0 0 0 2px #202020d9, 0 0 0 3px #2d2d2d;
+    --double-border-hover: 0 0 0 2px #1985a1, 0 0 0 3px #2d2d2d;
 
 }
 
@@ -49,22 +56,97 @@ body {
     background-color: var(--color-background);
     margin: 0;
     padding: 0;
-    height: 100vh;
-    width: 100vw;
     font-family: 'Roboto', sans-serif;
-    font-size: 16px;
     line-height: 1.5;
     color: var(--color-font);
+    width: 100vw;
+    height: 100vh;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
+
+input,
+select {
+    background-color: var(--color-grey2);
+    color: var(--color-font);
+    border: 1px solid #404040;
+    border-radius: var(--radius-s);
+    padding: 0.4rem;
+    font-size: 1rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    min-height: 1.5rem;
+}
+
+select {
+    padding: var(--spacing-s);
+}
+
+textarea:focus,
+input:focus,
+select:focus {
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+input:invalid[focused='true'] {
+    border-color: var(--error);
+}
+
+dialog {
+    color: var(--color-font);
+    border: none;
+    min-width: 300px;
+}
+
+button:active {
+  opacity: 0.8;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.standard-button {
+    width: fit-content;
+    padding: var(--spacing-s);
+    background-color: var(--color-primary);
+    color: whitesmoke;
+    box-shadow: var(--shadow);
+    border: 1px solid transparent;
+    border-radius: var(--radius-s);
+}
+
+.standard-button:hover {
+    border: 1px solid var(--color-secondary);
+    color: white;
+}
+
+.squared-button {
+    box-shadow: var(--double-border);
+    background-color: var(--color-grey2);
+    color: var(--color-text);
+    border: 0px solid transparent;
+    display: flex;
+    justify-content: center;
+    padding: var(--spacing-xxs);
+    border-radius: var(--radius-s);
+    width: fit-content;
+    height: fit-content;
+}
+
+.squared-button:not(:disabled):hover {
+    box-shadow: var(--double-border-hover);
+    transition: box-shadow var(--transition-fast) ease;
+}
+
 
 .elevated {
-  background-color: var(--color-grey4);
-  border-radius: var(--radius-l);
-  box-shadow: var(--shadow);
+    background-color: var(--color-grey2);
+    border-radius: var(--radius-l);
+    box-shadow: var(--shadow);
 }
-
