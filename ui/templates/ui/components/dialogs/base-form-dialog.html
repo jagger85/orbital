@@ -1,26 +1,26 @@
 {% comment %}
 
 request_path(str): The path where the form must be submitted
-modal_title(str): The modal title
+dialog_title(str): The modal title
 form_template(partial): The form to be submitted
 
 {% endcomment %}
-<div class="modal-wrapper elevated">
+
+{% load icon_tags%}
 <form hx-post="{{request_path}}">
-    <div class="modal-header">
-        <h2 class="modal-title">
-            {{modal_title}}
+    <div class="dialog-header">
+        <h2 class="dialog-title">
+            {{dialog_title}}
         </h2>
-        <button>Close</button>
+        <button class="squared-button" id="dialog-close-button">{% render_icon 'close' %}</button>
     </div>
 
-    <div class="modal-content">
+    <div class="dialog-content">
         {% include form_template %}
     </div>
-    <div class="modal-footer">
+    <div class="dialog-footer">
         <button class="standard-button" type="submit">
             Save
         </button>
     </div>
 </form>
-</div>

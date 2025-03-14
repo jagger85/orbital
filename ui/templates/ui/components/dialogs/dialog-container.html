@@ -1,0 +1,36 @@
+{% comment %}
+
+This container is needed for the dialogs to be rendered 
+It contains the logic to show and close
+
+{% endcomment %}
+
+<dialog id="dialog" class="modal-dialog elevated"></dialog>
+
+<script>
+    /*
+    * This script takes care of the dialog visibility 
+    * It points to the close button in the base-form-modal.html
+    */
+    const dialog = document.querySelector("dialog")
+
+    htmx.on("htmx:beforeSwap", (e) => {
+        dialog.showModal();
+    })
+
+    dialog.addEventListener("close", (e) => {
+        console.log('closed')
+        closeButton.removeEventListener("click", closeDialog)
+    })
+
+    htmx.on("htmx:afterSwap", (e) => {
+        const closeButton = document.querySelector("#dialog-close-button") //<------ Important, this points to the close button in base-form-modal.html
+        closeButton.addEventListener("click", closeDialog)
+    })
+
+    function closeDialog(e) {
+        e.preventDefault()
+        dialog.close()
+    }
+
+</script>
