@@ -1,1 +1,7 @@
 {% include "ui/components/page-title.html" with title="User Management" %}
+
+<button class="standard-button" hx-get="{% url 'add-user-dialog' %}" hx-target="#dialog" hx-swap='innerHTML'
+    hx-trigger='click'>
+    Add User
+</button>
+{% include "ui/components/dialogs/dialog-container.html" %}
