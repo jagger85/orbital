@@ -1,0 +1,26 @@
+{% comment %}
+
+request_path(str): The path where the form must be submitted
+modal_title(str): The modal title
+form_template(partial): The form to be submitted
+
+{% endcomment %}
+<div class="modal-wrapper elevated">
+<form hx-post="{{request_path}}">
+    <div class="modal-header">
+        <h2 class="modal-title">
+            {{modal_title}}
+        </h2>
+        <button>Close</button>
+    </div>
+
+    <div class="modal-content">
+        {% include form_template %}
+    </div>
+    <div class="modal-footer">
+        <button class="standard-button" type="submit">
+            Save
+        </button>
+    </div>
+</form>
+</div>
