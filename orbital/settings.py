@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'scraper',
     'ui',
     "django_htmx",
     'django.contrib.admin',
@@ -74,15 +75,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'orbital.wsgi.application'
 
+from os import getenv
+from dotenv import load_dotenv
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+load_dotenv()
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': getenv('PGDATABASE'),
+    'USER': getenv('PGUSER'),
+    'PASSWORD': getenv('PGPASSWORD'),
+    'HOST': getenv('PGHOST'),
+    'PORT': getenv('PGPORT', 5432),
+    'OPTIONS': {
+      'sslmode': 'require',
+    },
+    'DISABLE_SERVER_SIDE_CURSORS': True,
+  }
 }
 
 
