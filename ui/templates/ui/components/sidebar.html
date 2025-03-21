@@ -1,0 +1,19 @@
+{% load sidebar_constants %}
+
+    <div class="sidebar-header">
+        Sidebar header
+    </div>
+    <div class="sidebar-content">
+        <nav id="navigation-links" hx-target="#page-wrapper">
+            {% get_sidebar as sidebar %}
+            {% for element in sidebar.elements %}
+            <a hx-get="{{element.path}}" hx-push-url="true" hx-swap="innerHTML">
+            {{element.label}}
+            </a>
+            
+            {% endfor %}
+        </nav>
+    </div>
+    <div class="sidebar-footer">
+        Sidebar footer
+    </div>

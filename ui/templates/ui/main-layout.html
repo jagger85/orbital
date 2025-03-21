@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static "main-layout.css"%}">
+<link rel="stylesheet" href="{% static "dialog.css"%}">
+{% endblock css_files %}
+
+{% block content %}
+
+<div class="app-wrapper">
+    <div class="sidebar-wrapper">
+        {% include "ui/components/sidebar.html" %}
+    </div>
+    <div id="page-wrapper" class="page-wrapper">
+        {% block page %}
+
+        {% if partial_template %}
+
+        {% include partial_template %}
+
+
+        {% endif %}
+
+        {% endblock page %}
+
+    </div>
+</div>
+
+{% endblock content %}
