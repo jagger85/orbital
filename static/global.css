@@ -77,8 +77,8 @@ select {
     padding: 0.4rem;
     font-size: 1rem;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
     min-height: 1.5rem;
+    transition: all var(--transition-fast) ease;
 }
 
 select {
@@ -92,8 +92,21 @@ select:focus {
     outline: none;
 }
 
-input:invalid[focused='true'] {
-    border-color: var(--error);
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    background-color: transparent !important;
+    -webkit-box-shadow: 0 0 0 1000px var(--color-grey2) inset !important;
+    -webkit-text-fill-color: var(--color-font) !important;
+    transition: background-color 5000s ease-in-out 0s,
+        -webkit-box-shadow 5000s ease-in-out 0s;
+}
+
+input:not(:-webkit-autofill) {
+    background-color: var(--color-grey2);
+    -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.2);
+    -webkit-text-fill-color: var(--color-font);
 }
 
 dialog {
@@ -103,7 +116,7 @@ dialog {
 }
 
 button:active {
-  opacity: 0.8;
+    opacity: 0.8;
 }
 
 button:disabled {
@@ -111,13 +124,13 @@ button:disabled {
     cursor: not-allowed;
 }
 
-.vertical-form{
+.vertical-form {
     display: flex;
-    flex-direction:column;
-    gap:1rem;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-.vertical-label{
+.vertical-label {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-xs)
