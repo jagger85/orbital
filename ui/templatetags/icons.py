@@ -18,7 +18,7 @@ ICONS = {
         <circle cx="12" cy="7" r="4"/>
     """),
     "close": get_icon("square-x", """
-    <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/>
+    <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
     """),
     "plus": get_icon("plus", """
         <path d="M5 12h14"/>
