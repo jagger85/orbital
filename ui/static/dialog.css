@@ -11,12 +11,6 @@
     display: flex;
     flex-direction: column;
 }
-.dialog-content label{
-    margin-bottom: var(--spacing-xs);
-}
-.dialog-content input,select{
-    margin-bottom: var(--spacing-m);
-}
 
 ::backdrop {
   background-color: black;

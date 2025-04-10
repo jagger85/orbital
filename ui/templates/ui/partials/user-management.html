@@ -1,7 +1,35 @@
 {% include "ui/components/page-title.html" with title="User Management" %}
+{% load icon_tags%}
 
-<button class="standard-button" hx-get="{% url 'add-user-dialog' %}" hx-target="#dialog" hx-swap='innerHTML'
-    hx-trigger='click'>
-    Add User
+<button id='add-user-button' class='standard-button'>
+    Add user
 </button>
-{% include "ui/components/dialogs/dialog-container.html" %}
+
+<dialog id='add-user-dialog' class="modal-dialog elevated">
+    <div class='dialog-header'>
+        <h2 class='dialog-title'>
+            Add User
+        </h2>
+        <button class='squared-button' id='dialog-close-button'>{% render_icon 'close' %}</button>
+    </div>
+
+    {% include "ui/components/forms/add-user-form.html" %}
+
+</dialog>
+
+<script>
+    (function () {
+
+        const dialog = document.getElementById('add-user-dialog')
+        const addUserButton = document.getElementById('add-user-button')
+        const closeButton = document.getElementById('dialog-close-button')
+
+        addUserButton.addEventListener("click", () => {
+            dialog.showModal()
+        })
+
+        closeButton.addEventListener("click", () => {
+            dialog.close()
+        })
+    })()
+</script>

@@ -1,0 +1,19 @@
+ <form method="POST" class="vertical-form">
+     {% csrf_token %}
+     <label for="username" class='vertical-label'>Enter a username
+         <input id="username" name="username" type="text">
+     </label>
+     <label for="role" class='vertical-label'>Select a role
+         <select name="role" id="role">
+             <option value="admin">Admin</option>
+             <option value="user">User</option>
+             <option value="guest">Guest</option>
+         </select>
+     </label>
+     <label for="email" class='vertical-label'>Enter a valid email
+         <input type="email" id="email" name="email">
+     </label>
+     <button class="standard-button" type="submit">
+         Add User
+     </button>
+ </form>
