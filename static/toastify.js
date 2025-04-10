@@ -78,7 +78,7 @@
             }
             if (!0 === this.options.close) {
                 var e = document.createElement("button");
-                e.type = "button", e.setAttribute("aria-label", "Close"), e.className = "toast-close", e.innerHTML = "&#10006;", e.addEventListener("click", function(t) {
+                e.type = "button", e.setAttribute("aria-label", "Close"), e.className = "toast-close", e.innerHTML = "", e.addEventListener("click", function(t) {
                     t.stopPropagation(), this.removeElement(this.toastElement), window.clearTimeout(this.toastElement.timeOutValue)
                 }.bind(this));
                 var n = window.innerWidth > 0 ? window.innerWidth : screen.width;
