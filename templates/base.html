@@ -10,7 +10,10 @@
     {% block title %}{% endblock title %}
 
     <script type="text/javascript" src="{% static 'htmx.js' %}"></script>
+    <script type="text/javascript" src="{% static 'toastify.js' %}"></script>
+
     <link rel="stylesheet" href="{% static 'global.css' %}">
+    <link rel="stylesheet" href="{% static 'toastify.css' %}">
 
     {% block css_files %}{% endblock css_files %}
 </head>
@@ -18,5 +21,62 @@
 <body>
     {% block content %}{% endblock content %}
 </body>
+
+<script>
+    // Function to display Toastify notifications
+    function showCToast(type, message) {
+        /* 
+            type: info, success, error, default;
+            message: message to be displayed.
+            */
+        const colorMap = {
+            "info": '#63B3ED',
+            "success": '#2dce89',
+            "error": '#f5365c',
+            "warning": "#20c997"
+        };
+
+        const iconMap = {
+            "info": '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
+            "success": '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+            "error": '<circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/>',
+            "warning": '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>'
+        };
+
+        const color = colorMap[type];
+        const icon =
+            `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke=${colorMap[type]} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather">${iconMap[type]}</svg>`;
+
+        // Configure and display the toast notification
+        Toastify({
+            text: `<div style="display: flex; align-items: center; gap: 8px;">${icon}<span>${message}</span></div>`,
+            duration: 3000,
+            className: type,
+            close: true,
+            gravity: "bottom", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevent dismissing of toast on hover
+            style: {
+                background: color,
+            },
+            escapeMarkup: false, // Render HTML tags in the notification
+        }).showToast();
+    }
+
+// Extract Django messages and display them using Toastify
+const customMessages = [
+    {% for message in messages %}
+        {
+            "tags": "{{ message.tags|default:'' }}",
+            "message": '{{ message.message|default:'' }}'
+        }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+];
+
+// Display each custom message using Toastify
+customMessages.forEach(message => {
+    showCToast(message.tags, message.message);
+});
+</script>
 
 </html>
