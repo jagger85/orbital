@@ -1,19 +1,54 @@
 {% load sidebar_constants %}
 
-    <div class="sidebar-header">
-        Sidebar header
-    </div>
-    <div class="sidebar-content">
-        <nav id="navigation-links" hx-target="#page-wrapper">
-            {% get_sidebar as sidebar %}
-            {% for element in sidebar.elements %}
-            <a hx-get="{{element.path}}" hx-push-url="true" hx-swap="innerHTML">
-            {{element.label}}
-            </a>
-            
-            {% endfor %}
-        </nav>
-    </div>
-    <div class="sidebar-footer">
-        Sidebar footer
-    </div>
+<div class="sidebar-header">
+    Sidebar header
+</div>
+<div class="sidebar-content">
+    <nav id="navigation-links" hx-target="#page-wrapper">
+        {% get_sidebar as sidebar %}
+        {% for element in sidebar.elements %}
+        <a hx-get="{{element.path}}" hx-push-url="true" hx-swap="innerHTML" class="nav-link"
+            data-path="{{element.path}}">
+            <span class="nav-icon">{{ element.icon|safe }}</span>
+            <span class="nav-label">{{element.label}}</span>
+        </a>
+        {% endfor %}
+    </nav>
+</div>
+<div class="sidebar-footer">
+    Sidebar footer
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navLinks = document.querySelectorAll('#navigation-links .nav-link');
+
+        function updateActiveState() {
+            // Get the current path from window.location
+            const currentPath = window.location.pathname;
+
+            navLinks.forEach(link => {
+
+                if (link.dataset.path === currentPath) {
+                    link.classList.add('active')
+                } else if (`${link.dataset.path}/` === currentPath) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        // Initial update
+        updateActiveState();
+
+        // Update on HTMX navigation
+        document.body.addEventListener('htmx:afterSwap', function (evt) {
+            // Small delay to ensure URL is updated
+            setTimeout(updateActiveState, 50);
+        });
+
+        // Update on history navigation (back/forward)
+        window.addEventListener('popstate', updateActiveState);
+    });
+</script>

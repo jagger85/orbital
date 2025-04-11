@@ -1,0 +1,32 @@
+{% load icon_tags%}
+
+<table class='user-table'>
+    <thead>
+        <tr class='table-header'>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th class='table-actions-cell'>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{user.username}}</td>
+            <td>{{user.role}}</td>
+            <td>{{user.email}}</td>
+            <td class='table-actions-cell'>
+            <button class='squared-button'>
+                {% render_icon 'trash' %}
+            </button>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td>example_user</td>
+            <td>admin</td>
+            <td>user@example.com</td>
+            <td class='table-actions-cell'>A place for the actions</td>
+        </tr>
+    </tbody>
+</table>

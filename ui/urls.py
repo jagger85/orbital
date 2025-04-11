@@ -11,8 +11,4 @@ urlpatterns = [
     path('user-management/', views.user_management ),
     path('preferences/', views.settings ),
     
-    # Dialogs
-    path('dialog/add-user', views.add_user, name='add-user-dialog'),
-    path('dialog/add-scrap', views.add_scrap, name='add-scrap-dialog'),
-    
 ]
