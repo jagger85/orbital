@@ -142,3 +142,11 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+"""
+If you attempt to access a page that requires login, 
+Django will use this LOGIN_URL for redirection. 
+If you don't add the LOGIN_URL to the settings.py, 
+Django will use the default login URL which is accounts/login/
+"""
+LOGIN_URL = 'login'
