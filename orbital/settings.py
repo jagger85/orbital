@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'scraper',
     'ui',
+    'users',
     "django_htmx",
     'django.contrib.admin',
     'django.contrib.auth',
