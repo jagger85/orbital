@@ -1,10 +1,16 @@
 from django.shortcuts import render
 from django.contrib import messages
+from django.views import View
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+from django.views.decorators.vary import vary_on_headers
 
 # Page views and htmx middleware
 
 
-def htmx_view(request, template_base, context=None):
+@method_decorator(cache_page(60 * 15), name='dispatch')  # Cache for 15 minutes
+@method_decorator(vary_on_headers('HX-Request'), name='dispatch')
+class HTMXView(View):
     """
     Generic view handler for HTMX requests
 
@@ -16,54 +22,53 @@ def htmx_view(request, template_base, context=None):
     - When is triggered by a HTMX navigation link we only need to send the partial
 
     """
-    if context is None:
-        context = {}
+    template_base = None
 
-    context['partial_template'] = f"ui/partials/{template_base}.html"
-    template = f"ui/partials/{template_base}.html" if request.htmx else "ui/main-layout.html"
-
-    return render(request, template, context)
-
-
-def overview(request):
-    return htmx_view(request, 'overview')
+    def get(self, request, *args, **kwargs):
+        context = kwargs.get('context', {})
+        context['partial_template'] = f"ui/partials/{self.template_base}.html"
+        template = f"ui/partials/{self.template_base}.html" if request.htmx else "ui/main-layout.html"
+        return render(request, template, context)
 
 
-def scrapers(request):
-    return htmx_view(request, 'scrapers')
+class OverviewView(HTMXView):
+    template_base = 'overview'
 
 
-def automation(request):
-    return htmx_view(request, 'automation')
+class ScrapersView(HTMXView):
+    template_base = 'scrapers'
 
 
-def history(request):
-    return htmx_view(request, 'history')
+class AutomationView(HTMXView):
+    template_base = 'automation'
 
 
-def user_management(request):
+class HistoryView(HTMXView):
+    template_base = 'history'
 
-    users = [
-        {'username': 'andy', 'role': 'admin', 'email': 'andy@gmail.com'},
-        {'username': 'andy', 'role': 'admin', 'email': 'andy@gmail.com'},
-        {'username': 'andy', 'role': 'admin', 'email': 'andy@gmail.com'},
-        {'username': 'andy', 'role': 'admin', 'email': 'andy@gmail.com'},
-    ]
 
-    if request.method == "POST":
+class UserManagementView(HTMXView):
+    template_base = 'user-management'
+
+    def get(self, request, *args, **kwargs):
+        users = [
+            {'username': 'andy', 'role': 'admin', 'email': 'andy@gmail.com'},
+            {'username': 'andy', 'role': 'admin', 'email': 'andy@gmail.com'},
+            {'username': 'andy', 'role': 'admin', 'email': 'andy@gmail.com'},
+            {'username': 'andy', 'role': 'admin', 'email': 'andy@gmail.com'},
+        ]
+        context = {'users': users}
+        return super().get(request, context=context)
+
+    def post(self, request, *args, **kwargs):
         new_user = {
             'username': request.POST['username'],
             'role': request.POST['role'],
             'email': request.POST['email']
         }
         messages.success(request, 'the user has been added')
-
-    context = {
-        'users': users
-    }
-
-    return htmx_view(request, 'user-management', context)
+        return self.get(request)
 
 
-def settings(request):
-    return htmx_view(request, 'settings')
+class SettingsView(HTMXView):
+    template_base = 'settings'

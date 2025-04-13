@@ -1,13 +1,13 @@
 from django.urls import path
-from . import views
+from .views import OverviewView, ScrapersView, AutomationView, HistoryView, UserManagementView, SettingsView
 
 urlpatterns = [
     
     # Pages
-    path('', views.overview, name='overview' ),
-    path('scrap/', views.scrapers ),
-    path('automation/', views.automation ),
-    path('history/', views.history ),
-    path('user-management/', views.user_management ),
-    path('preferences/', views.settings ),
+    path('', OverviewView.as_view(), name='overview' ),
+    path('scrap/', ScrapersView.as_view(), name='scrap' ),
+    path('automation/', AutomationView.as_view(), name='automation' ),
+    path('history/', HistoryView.as_view(), name='history' ),
+    path('user-management/', UserManagementView.as_view(), name='user-management' ),
+    path('preferences/', SettingsView.as_view(),name='settings' ),
 ]
